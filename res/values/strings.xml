@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GroupChat</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Start screen strings -->
+    <string name="nameHint">Choose your nick</string>
+    <string name="useThisButton">Use this :)</string>
+
+    <!-- Messaging screen strings -->
+    <string name="userMessageBoxHint">Enter your message</string>
+    <string name="groupMessageBoxText">No messages as of yet !</string>
+    <string name="sendButtonText">send</string>
+
+</resources>
