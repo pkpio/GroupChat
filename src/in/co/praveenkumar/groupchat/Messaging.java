@@ -5,12 +5,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -26,8 +32,8 @@ import android.widget.TextView;
 
 public class Messaging extends Activity {
 	// Settings
-	public final String sendDataUrl = "http://home.iitb.ac.in/~praveendath92/groupChat/putData.php?value=";
-	public final String fetchDataUrl = "http://home.iitb.ac.in/~praveendath92/groupChat/messages.txt";
+	public final String sendDataUrl = "http://groupchat.praveenkumar.co.in/putData.php";
+	public final String fetchDataUrl = "http://groupchat.praveenkumar.co.in/messages.txt";
 	public final int updateFrequency = 500; // In milli seconds
 
 	public static String nick = "default";
@@ -150,13 +156,16 @@ public class Messaging extends Activity {
 
 	// Send data to server
 	public void sendDataToServer(String url) {
-		// Making HTTP request
+		// Making HTTP POST request to send data
 		try {
-			// defaultHttpClient
+			// A client to do a HTTP Post request
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			String effectiveMessage = getEffectiveMessage(nick + " : "
-					+ userMessage);
-			HttpPost httpPost = new HttpPost(url + effectiveMessage);
+			HttpPost httpPost = new HttpPost(url);
+
+			// Adding nameValuePairs - message as a post variable to the request
+			List<NameValuePair> msg = new ArrayList<NameValuePair>();
+			msg.add(new BasicNameValuePair("msg", nick + " : " + userMessage));
+			httpPost.setEntity(new UrlEncodedFormEntity(msg));
 
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			HttpEntity httpEntity = httpResponse.getEntity();
@@ -177,12 +186,12 @@ public class Messaging extends Activity {
 	public void getDataFromServer(String url) {
 		String serverResponse = null;
 		InputStream is = null;
-		// Making HTTP request
 		try {
+			// A client to get data from data
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			HttpPost httpPost = new HttpPost(url);
+			HttpGet httpReq = new HttpGet(url);
 
-			HttpResponse httpResponse = httpClient.execute(httpPost);
+			HttpResponse httpResponse = httpClient.execute(httpReq);
 			HttpEntity httpEntity = httpResponse.getEntity();
 			is = httpEntity.getContent();
 
@@ -210,23 +219,6 @@ public class Messaging extends Activity {
 		} catch (Exception e) {
 			Log.e("Buffer Error", "Error converting result " + e.toString());
 		}
-
-	}
-
-	public String getEffectiveMessage(String data) {
-		data = data.replaceAll("%", "%25");
-		data = data.replaceAll("\\s", "%20");
-		data = data.replaceAll("#", "%23");
-		data = data.replaceAll("\\{", "%7B");
-		data = data.replaceAll("\\|", "%7C");
-		data = data.replaceAll("\\}", "%7D");
-		data = data.replaceAll("<", "%3C");
-		data = data.replaceAll(">", "%3E");
-		data = data.replaceAll("\"", "%22");
-		data = data.replaceAll("-", "%2D");
-		data = data.replaceAll("&", "%26");
-		data = data.replaceAll("\\\\", "%5C");
-		return data;
 
 	}
 }
