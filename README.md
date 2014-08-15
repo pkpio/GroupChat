@@ -6,7 +6,7 @@ Group chat application developed for Android workshop session. Everyone comments
 
 Install
 ----------------------
-* Simply download from https://play.google.com/store/apps/details?id=in.co.praveenkumar.groupchat
+* Simply download from <a href="https://play.google.com/store/apps/details?id=in.co.praveenkumar.groupchat" target="_blank">Playstore</a>
     
     or
     
