@@ -2,7 +2,7 @@
 $MessagesFile = 'messages.txt';
 $handle = fopen($MessagesFile, 'r') or die('Cannot open file:  ' . $MessagesFile);
 $message     = fread($handle, filesize($MessagesFile));
-$message     = $message . $_GET['value'] . "\n";
+$message     = $message . $_POST['msg'] . "\n";
 $notAlloweds = array(
     'praveen',
     'fuck'
