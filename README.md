@@ -2,6 +2,8 @@ GroupChat
 =========
 Group chat application developed for Android workshop session. Everyone comments on the same thread.
 
+Both Eclipse and Android studio projects are available
+
 <br/>
 
 Install
@@ -10,14 +12,14 @@ Install
     
     or
     
-* Clone this project and build a setup for yourself.
+* Clone this project and build a it yourself.
 
 <br/>
 
 Author
 ----------------------
-Praveen Kumar Pendyala <<praveen@praveenkumar.co.in>><br>
-http://praveenkumar.co.in
+Praveen Kumar Pendyala <<m@praveen.xyz>><br>
+http://praveen.xyz
 
 <br/>
 
